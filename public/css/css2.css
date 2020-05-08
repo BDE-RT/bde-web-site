@@ -1,3 +1,7 @@
 body {
-    background-color: #ff7c44,
+    background-color: #ff7c44;
+}
+
+title {
+    font-size: larger;
 }
