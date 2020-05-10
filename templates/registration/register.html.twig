@@ -3,14 +3,20 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <div class="p-xl-5 justify-content-center d-flex">
+        <div class="card text-white d-flex justify-content-center" style="max-width: 40rem;">
+            <div class="card-header">Register</div>
+            <div class="card-body">
+                {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.username) }}
+                {{ form_row(registrationForm.plainPassword) }}
+                {{ form_row(registrationForm.agreeTerms) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+                <button type="submit" class="btn btn-primary">Register</button>
 
-        <button type="submit" class="btn">Register</button>
-
-    {{ form_end(registrationForm) }}
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}
