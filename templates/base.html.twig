@@ -8,7 +8,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#"><img src="{{ asset("img/logo.png") }}" style="width: 60px"></a>
+    <a class="navbar-brand" href="#"><img src="{{ asset("img/logo.png") }}" style="width: 60px; margin: -10px; margin-left: 20px" alt="Logo bi"></a>
     <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
@@ -18,14 +18,15 @@
                 <a class="nav-link" href="{{ path('articles') }}">Articles</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link bg-primary " href="#" style="border-radius: 5px">Jouer</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="#">À propos</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link " href="#" style="border-radius: 10px; color: black; background-color: #FCC91B">Jouer</a>
+            </li>
+
         </ul>
         {% if app.user %}
-            <ul class="navbar-nav align-items-end">
+            <ul class="navbar-nav align-items-end" style="margin-right: 20px">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_register') }}">Engistrement</a>
                 </li>
@@ -34,7 +35,7 @@
                 </li>
             </ul>
         {% else %}
-            <ul class="navbar-nav align-items-end">
+            <ul class="navbar-nav align-items-end" style="margin-right: 20px">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_logout') }}">Profile</a>
                 </li>
