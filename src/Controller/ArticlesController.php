@@ -46,6 +46,8 @@ class ArticlesController extends AbstractController
             throw $this->createNotFoundException('L\'article n\'existe pas');
         }
 
+        $user = $this->getUser();
+
         $commentaire = new Commentaires();
 
         $form = $this->createForm(CommentairesFormType::class, $commentaire);
@@ -54,8 +56,8 @@ class ArticlesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $commentaire->setArticles($article);
-
             $commentaire->setCreatedAt(new \DateTime('now'));
+            $commentaire->setUsername($user);
 
             $doctrine = $this->getDoctrine()->getManager();
 
@@ -64,7 +66,6 @@ class ArticlesController extends AbstractController
             $doctrine->flush();
         }
 
-//        $user= $this->get('security.context')->getToken()->getUser();
 
         return $this->render('articles/article.html.twig', [
             'article' => $article,
