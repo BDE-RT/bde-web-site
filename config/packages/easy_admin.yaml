@@ -18,6 +18,8 @@ easy_admin:
             - { entity: 'MotsCles', label: 'Mots Clés', icon: 'tag' }
             - { label: 'Utilisateurs' }
             - { entity: 'Users', label: 'Utilisateurs', icon: 'user' }
+#            - { label: 'System' }
+#            - { label: 'PHP Info', route: 'easyadmin_phpinfo', icon: 'info' }
     formats:
         # Ici on définit le format des dates
         datetime: 'd/m/Y à H:i'
