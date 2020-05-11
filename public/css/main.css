@@ -1,0 +1,13 @@
+
+.bouttonapero{
+    color: inherit; color: black;
+    margin-left: 5px; border-radius: 10px; background-color: #FCC91B;
+}
+.bouttonapero:hover{
+    background-color: #FECB18;
+}
+
+.cartelarge{
+    width: 80rem; height: 40rem;
+    margin-left: 10rem; margin-top: 2.5rem;
+}
