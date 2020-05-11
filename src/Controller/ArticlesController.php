@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Articles;
 use App\Entity\Commentaires;
+use App\Form\CommentairesFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,19 +36,41 @@ class ArticlesController extends AbstractController
     /**
      * @Route("/article/{slug}", name="article_view")
      */
-    public function article($slug){
+    public function article($slug, Request $request){
         $article = $this->getDoctrine()->getRepository(Articles::class)->findOneBy(['slug' => $slug]);
-
-//        $commentaires = $this->getDoctrine()->getRepository(Commentaires::class)->findBy(['articles_id'=> $article['id']]);
-
+        $commentaires = $this->getDoctrine()->getRepository(Commentaires::class)->findBy([
+            'articles' => $article,
+        ],['id' => 'desc']);
 
         if(!$article){
             throw $this->createNotFoundException('L\'article n\'existe pas');
         }
 
+        $commentaire = new Commentaires();
+
+        $form = $this->createForm(CommentairesFormType::class, $commentaire);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $commentaire->setArticles($article);
+
+            $commentaire->setCreatedAt(new \DateTime('now'));
+
+            $doctrine = $this->getDoctrine()->getManager();
+
+            $doctrine->persist($commentaire);
+
+            $doctrine->flush();
+        }
+
+//        $user= $this->get('security.context')->getToken()->getUser();
+
         return $this->render('articles/article.html.twig', [
             'article' => $article,
-//            'commentaires' => $commentaires,
+            'formComment' => $form->createView(),
+            'commentaires' => $commentaires,
+//            'user' => $user,
         ]);
     }
 
