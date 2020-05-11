@@ -27,19 +27,19 @@
         {% if app.user %}
             <ul class="navbar-nav align-items-end">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_register') }}">Engistrement</a>
+                    <a class="nav-link" href="{{ path('profile', {'username': app.user}) }}">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_login') }}">Connection</a>
+                    <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
                 </li>
             </ul>
         {% else %}
             <ul class="navbar-nav align-items-end">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_logout') }}">Profile</a>
+                    <a class="nav-link" href="{{ path('app_register') }}">Engistrement</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+                    <a class="nav-link" href="{{ path('app_login') }}">Connection</a>
                 </li>
             </ul>
         {% endif %}

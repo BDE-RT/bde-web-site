@@ -16,11 +16,6 @@ class CommentairesFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ]
-            ])
             ->add('contenu', TextareaType::class, [
                 'attr' => [
                     'class' => 'form-control'

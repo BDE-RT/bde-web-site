@@ -4,9 +4,9 @@
 
 {% block body %}
     <div class="container">
-{#    {{ user }}#}
+{#    <h1>{{ user }}</h1>#}
     <div class="row justify-content-md-center">
-        <div class="col col-13">
+        <div class="col col-xl-11">
             <div class="card mb-3">
                 <h3 class="card-header">{{ article.titre }}</h3>
                 <div class="card-body">
@@ -29,8 +29,8 @@
         </div>
     </div>
     <div class="row justify-content-md-center">
-        <div class="col col-8">
-            <div class="card bg-light mb-8" >
+        <div class="col col-xl-11">
+            <div class="card bg-light mb-3" >
                 <div class="card-header"><h2>Commentaires</h2></div>
                 {% for commentaire in commentaires %}
                     <div class="card-body">
@@ -46,9 +46,14 @@
                     </div>
                 {% endfor %}
             </div>
-        </div>
-        <div class="col col-3">
-            {{ form(formComment) }}
+            {% if app.user %}
+                    {{ form(formComment) }}
+            {% else %}
+                <div class="warning">
+                    Pour poster des commentaires connectez-vous
+                    <p><a href="{{ path('app_login') }}">Se connecter</a></p>
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
