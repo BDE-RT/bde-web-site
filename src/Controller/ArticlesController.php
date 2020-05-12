@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Articles;
 use App\Entity\Commentaires;
 use App\Form\CommentairesFormType;
+use App\Form\AjoutArticlesFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,15 +27,13 @@ class ArticlesController extends AbstractController
             $request->query->getInt('page', 1),
             6
             );
-
-
         return $this->render('articles/index.html.twig', [
             'articles' => $articles,
         ]);
     }
 
     /**
-     * @Route("/article/{slug}", name="article_view")
+     * @Route("/article/{slug}/view", name="article_view")
      */
     public function article($slug, Request $request){
         $article = $this->getDoctrine()->getRepository(Articles::class)->findOneBy(['slug' => $slug]);
@@ -74,5 +73,4 @@ class ArticlesController extends AbstractController
 //            'user' => $user,
         ]);
     }
-
 }
