@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     app.path.featured_images: /uploads/images/featured
+    app.path.user_image: /uploads/image/user
 
 services:
     # default configuration for services in *this* file
