@@ -25,24 +25,23 @@
             <li class="nav-item">
                 <a class="nav-link bouttonapero text-black-50 font-weight-bold" href="#">Jouer</a>
             </li>
-
         </ul>
         {% if app.user %}
-            <ul class="navbar-nav align-items-end" style="margin-right: 20px">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_register') }}">Engistrement</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
-                </li>
-            </ul>
-        {% else %}
             <ul class="navbar-nav align-items-end" style="margin-right: 20px">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_logout') }}">Profil</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+                </li>
+            </ul>
+        {% else %}
+            <ul class="navbar-nav align-items-end" style="margin-right: 20px">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_register') }}">Engistrement</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
                 </li>
             </ul>
         {% endif %}
