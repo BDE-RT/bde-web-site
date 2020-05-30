@@ -9,12 +9,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/profile/{username}/view", name="profile")
+     * @Route("/profile/{id}/view", name="my_profile")
      */
-    public function index($username)
+    public function index($id)
     {
-        $user = $this->getDoctrine()->getRepository(Users::class)->findOneBy(['username' => $username]);
-//        $profile = $this->getDoctrine()->getRepository()
+        $user = $this->getDoctrine()->getRepository(Users::class)->findOneBy(['id' => $id]);
 
         return $this->render('profile/index.html.twig', [
             'user' => $user,

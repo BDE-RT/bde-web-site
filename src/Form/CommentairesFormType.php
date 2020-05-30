@@ -22,8 +22,9 @@ class CommentairesFormType extends AbstractType
                 ]
             ])
             ->add('rgpd', CheckboxType::class, [
-                'label' => "j'accepte la collecte de mes données"
-
+                'label' => "J'accepte que mes informations soient stockées dans la base de données de BDE.fr pour 
+                            la gestion des commentaires. J'ai bien noté qu'en aucun cas ces données ne seront 
+                            cédées à des tiers."
             ])
             ->add('Envoyer', SubmitType::class);
     }
