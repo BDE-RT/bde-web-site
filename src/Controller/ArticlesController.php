@@ -63,6 +63,8 @@ class ArticlesController extends AbstractController
             $doctrine->persist($commentaire);
 
             $doctrine->flush();
+            $this->addFlash('success', 'Commentaire envoyé');
+            return $this->redirectToRoute('article_view', ['slug' => $slug]);
         }
 
 
@@ -70,7 +72,6 @@ class ArticlesController extends AbstractController
             'article' => $article,
             'formComment' => $form->createView(),
             'commentaires' => $commentaires,
-//            'user' => $user,
         ]);
     }
 }
