@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Commentaires;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -16,7 +17,7 @@ class CommentairesFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('contenu', TextareaType::class, [
+            ->add('contenu', CKEditorType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ]

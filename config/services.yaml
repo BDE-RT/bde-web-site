@@ -6,6 +6,11 @@
 parameters:
     app.path.featured_images: /uploads/images/featured
     app.path.user_image: /uploads/image/user
+    directory_namer:
+        service: vich_uploader.directory_namer_subdir
+        options: {chars_per_dir: 3, dirs: 2}
+    delete_on_remove: true # suppression du fichier à la suppression de l’entité
+    delete_on_update: true # suppression du fichier quand un nouveau fichier est envoyé
 
 services:
     # default configuration for services in *this* file
