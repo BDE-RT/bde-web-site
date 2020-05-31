@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Users;
 use App\Form\ModifyUsersType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -13,7 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route ("/profile", name="profile_home")
+     * @Route ("/profile", name="profile_home")*
      */
     public function index(Request $request, EntityManagerInterface $manager) {
 
@@ -21,7 +23,9 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager->persist($user);
+//            dd($user);
+
+//            $manager->persist($user);
             $manager->flush();
 
             $this->addFlash('message', 'Utilisateur modifié avec succès');
@@ -33,9 +37,10 @@ class ProfileController extends AbstractController
     }
 
 
-
     /**
      * @Route("/profile/{id}/view", name="profile_viewer")
+     * @param $id
+     * @return Response
      */
     public function viewprofile($id)
     {

@@ -22,7 +22,7 @@ class ModifyUsersType extends AbstractType
 //            ->add('password')
 //            ->add('username')
 //            ->add('updated_at')
-            ->add('imageFile', VichImageType::class, [
+            ->add('user_image', VichImageType::class, [
                 'label' => 'Photo de profile :',
                 'required' => false,
             ])

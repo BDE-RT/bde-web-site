@@ -5,7 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     app.path.featured_images: /uploads/images/featured
-    app.path.user_image: /uploads/image/user
+    app.path.user_image: /uploads/images/user
     directory_namer:
         service: vich_uploader.directory_namer_subdir
         options: {chars_per_dir: 3, dirs: 2}
