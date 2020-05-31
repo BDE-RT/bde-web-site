@@ -23,7 +23,7 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            dd($user);
+            dd($request);
 
 //            $manager->persist($user);
             $manager->flush();
