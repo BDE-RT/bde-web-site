@@ -53,18 +53,6 @@ class Users implements UserInterface
     private $articles;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @var string
-     */
-    private $userImage;
-
-    /**
-     * @Vich\UploadableField(mapping="user_image", fileNameProperty="userImage")
-     * @var File
-     */
-    private $imageFile;
-
-    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updated_at;
@@ -108,6 +96,19 @@ class Users implements UserInterface
      * @ORM\OneToMany(targetEntity=Commentaires::class, mappedBy="usersId")
      */
     private $commentaires;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string
+     */
+    private $user_image;
+
+    /**
+     * @Vich\UploadableField(mapping="user_image", fileNameProperty="user_image")
+     * @var File
+     */
+    private $imageFile;
+
 
     public function __construct()
     {
@@ -236,32 +237,6 @@ class Users implements UserInterface
         return $this;
     }
 
-    public function getUserImage()
-    {
-        return $this->userImage;
-    }
-
-    public function setUserImage(?string $userImage)
-    {
-        $this->userImage = $userImage;
-
-        return $this;
-    }
-
-    public function setImageFile(File $image = null)
-    {
-        $this->imageFile = $image;
-
-        if ($image) {
-            $this->updated_at = new \DateTime('now');
-        }
-    }
-
-    public function getImageFile()
-    {
-        return $this->imageFile;
-    }
-
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updated_at;
@@ -387,5 +362,31 @@ class Users implements UserInterface
         }
 
         return $this;
+    }
+
+    public function getUserImage(): ?string
+    {
+        return $this->user_image;
+    }
+
+    public function setUserImage(?string $user_image): self
+    {
+        $this->user_image = $user_image;
+
+        return $this;
+    }
+
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        if ($image) {
+            $this->updated_at = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
     }
 }

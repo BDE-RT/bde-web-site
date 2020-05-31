@@ -21,11 +21,11 @@ class ModifyUsersType extends AbstractType
 //            ->add('roles')
 //            ->add('password')
 //            ->add('username')
-            ->add('imageFile', VichImageType::class, [
+//            ->add('updated_at')
+            ->add('user_image', VichImageType::class, [
                 'label' => 'Photo de profile :',
                 'required' => false,
             ])
-//            ->add('updated_at')
             ->add('description', CKEditorType::class,[
                 'label' => 'Description :',
                 'required' => false,
