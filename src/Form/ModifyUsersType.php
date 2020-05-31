@@ -27,7 +27,7 @@ class ModifyUsersType extends AbstractType
             ])
 //            ->add('updated_at')
             ->add('description', CKEditorType::class,[
-                'label' => 'Photo de profile :',
+                'label' => 'Description :',
                 'required' => false,
             ])
             ->add('steamId', TextType::class,[

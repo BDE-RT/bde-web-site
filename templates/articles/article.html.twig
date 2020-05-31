@@ -49,7 +49,7 @@
                         <div class="comment-box">
                             <div class="comment-head">
                                 <h5 class="comment-name"><a
-                                            href="{{ path('my_profile', {'id' : commentaire.usersId.id }) }}">{{ commentaire.username }}</a>
+                                            href="{{ path('profile_viewer', {'id' : commentaire.usersId.id }) }}">{{ commentaire.username }}</a>
                                 </h5>
                                 <span>{{ commentaire.createdAt|date }}</span>
                                 <i class="fa fa-reply"></i>
@@ -72,7 +72,7 @@
                         <div class="comment-box">
                             <div class="comment-head">
                                 <h5 class="comment-name"><a
-{#                                            href="{{ path('my_profile', {'id' : commentaire.usersId.id }) }}">{{ commentaire.username }}</a>#}
+{#                                            href="{{ path('profile_viewer', {'id' : commentaire.usersId.id }) }}">{{ commentaire.username }}</a>#}
                                 </h5>
 {#                                <span>{{ commentaire.createdAt|date }}</span>#}
                                 <i class="fa fa-reply"></i>
