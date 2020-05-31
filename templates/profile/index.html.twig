@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ profile.username }}{% endblock %}
+{% block title %}{{ app.user.username }}{% endblock %}
 
 {% block body %}
     <div class="container" style="margin-top: 3%">
         <div class="card mb-3">
             <h3 class="card-header">
-                {{ profile.username }}
+                {{ app.user.username }}
             </h3>
             <img style="height: 100%; width: 256px; display: block;"
                  class="mx-auto d-block"
@@ -14,26 +14,26 @@
                  alt="Photo Profile">
             <hr>
             <div class="card-body">
-                <p class="card-text">{{ profile.description | raw }}</p>
+                <p class="card-text">{{ app.user.description | raw }}</p>
             </div>
             <ul class="list-group list-group-flush">
-                {% if profile.steamId != null and app.user == profile.username %}
-                    <li class="list-group-item">ID Steam : {{ profile.steamId }}</li>
+                {% if app.user.steamId != null %}
+                    <li class="list-group-item">ID Steam : {{ app.user.steamId }}</li>
                 {% endif %}
-                {% if profile.friendCode != null %}
-                    <li class="list-group-item">Code Ami Steam : {{ profile.friendCode }}</li>
+                {% if app.user.friendCode != null %}
+                    <li class="list-group-item">Code Ami Steam : {{ app.user.friendCode }}</li>
                 {% endif %}
-                {% if profile.discordTag != null %}
-                    <li class="list-group-item">Discord : {{ profile.discordTag }}</li>
+                {% if app.user.discordTag != null %}
+                    <li class="list-group-item">Discord : {{ app.user.discordTag }}</li>
                 {% endif %}
-                {% if profile.battleTag != null %}
-                    <li class="list-group-item">Battle Tag : {{ profile.battleTag }}</li>
+                {% if app.user.battleTag != null %}
+                    <li class="list-group-item">Battle Tag : {{ app.user.battleTag }}</li>
                 {% endif %}
-                {% if profile.xboxname != null %}
-                    <li class="list-group-item">Pseudo Xbox : {{ profile.xboxname }}</li>
+                {% if app.user.xboxname != null %}
+                    <li class="list-group-item">Pseudo Xbox : {{ app.user.xboxname }}</li>
                 {% endif %}
-                {% if profile.palystation != null %}
-                    <li class="list-group-item">Pseudo PlayStation : {{ profile.palystation }}</li>
+                {% if app.user.palystation != null %}
+                    <li class="list-group-item">Pseudo PlayStation : {{ app.user.palystation }}</li>
                 {% endif %}
             </ul>
         </div>
@@ -50,29 +50,29 @@
             <div class="card-body">
                 <h4 class="card-title">Card title</h4>
                 {{ form_start(form) }}
-                {{ form_label(form.user_image) }}
-                {{ form_widget(form.user_image) }}
+                {{ form_label(form.imageFile) }}
+                {{ form_widget(form.imageFile) }}
                 <br>
                 {{ form_label(form.description) }}
                 {{ form_widget(form.description) }}
                 <br>
                 {{ form_label(form.steamId ) }}
-                {{ form_widget(form.steamId, {'attr': {'placeholder': 'Idantifiant Steam', 'value' : profile.steamId }}) }}
+                {{ form_widget(form.steamId, {'attr': {'placeholder': 'Idantifiant Steam' }}) }}
                 <br>
                 {{ form_label(form.friendCode) }}
-                {{ form_widget(form.friendCode, {'attr': {'placeholder': 'Code Ami Steam', 'value' : profile.friendCode }}) }}
+                {{ form_widget(form.friendCode, {'attr': {'placeholder': 'Code Ami Steam' }}) }}
                 <br>
                 {{ form_label(form.discordTag) }}
-                {{ form_widget(form.discordTag, {'attr': {'placeholder': 'Idantifiant Discord', 'value' : profile.discordTag }}) }}
+                {{ form_widget(form.discordTag, {'attr': {'placeholder': 'Idantifiant Discord' }}) }}
                 <br>
                 {{ form_label(form.battleTag) }}
-                {{ form_widget(form.battleTag, {'attr': {'placeholder': 'Idantifiant Battle.net', 'value' : profile.battleTag }}) }}
+                {{ form_widget(form.battleTag, {'attr': {'placeholder': 'Idantifiant Battle.net' }}) }}
                 <br>
                 {{ form_label(form.xboxname) }}
-                {{ form_widget(form.xboxname, {'attr': {'placeholder': 'Identifiant Xbox', 'value' : profile.xboxname }}) }}
+                {{ form_widget(form.xboxname, {'attr': {'placeholder': 'Identifiant Xbox' }}) }}
                 <br>
                 {{ form_label(form.palystation) }}
-                {{ form_widget(form.palystation, {'attr': {'placeholder': 'Identifiant PlayStation', 'value' : profile.palystation }}) }}
+                {{ form_widget(form.palystation, {'attr': {'placeholder': 'Identifiant PlayStation' }}) }}
                 <br>
                 {{ form_end(form) }}
             </div>
