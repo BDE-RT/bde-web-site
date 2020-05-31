@@ -62,7 +62,28 @@
                     </div>
                 </li>
             {% else %}
-                Pas de commentaires
+                <li>
+                    <div class="comment-main-level">
+                        <!-- Avatar -->
+{#                        <div class="comment-avatar">#}
+{#                            <img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg"#}
+{#                                 alt=""></div>#}
+                        <!-- Contenedor del Comentario -->
+                        <div class="comment-box">
+                            <div class="comment-head">
+                                <h5 class="comment-name"><a
+{#                                            href="{{ path('my_profile', {'id' : commentaire.usersId.id }) }}">{{ commentaire.username }}</a>#}
+                                </h5>
+{#                                <span>{{ commentaire.createdAt|date }}</span>#}
+                                <i class="fa fa-reply"></i>
+                                <i class="fa fa-heart"></i>
+                            </div>
+                            <div class="comment-content">
+                                pas de commentaire
+                            </div>
+                        </div>
+                    </div>
+                </li>
             {% endfor %}
         </ul>
         {% if app.user %}
