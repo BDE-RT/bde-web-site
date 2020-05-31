@@ -9,7 +9,7 @@
 {% block body %}
     <div class="container">
     {#    <h1>{{ user }}</h1>#}
-    <div class="row justify-content-md-center">
+    <div class="row">
         <div class="col col-xl-11">
             <div class="card mb-3">
                 <h3 class="card-header">{{ article.titre }}</h3>
@@ -26,7 +26,7 @@
                 </div>
                 <div class="card-body">
                     <img src="{{ vich_uploader_asset(article, 'imageFile') }}" alt=""
-                         style="max-width: 960px; max-height: 540px">
+                         class="mx-auto d-block img-fluid">
                 </div>
                 <div class="card-body">{{ article.contenu|raw }}</div>
                 <div class="card-footer text-muted">
@@ -37,32 +37,32 @@
     </div>
     <div class="comments-container">
         <h1 class="text-white text-bold">Commentaires ({{ commentaires|length }})</h1>
-        <ul>
+        <ul id="comments-list" class="comments-list">
             {% for commentaire in commentaires %}
                 <li>
                     <div class="comment-main-level">
                         <!-- Avatar -->
-                        {#                    <div class="comment-avatar"><img#}
-                        {#                                src="http://i9.photobucket.com/albums/a88/creaticode/avatar_2_zps7de12f8b.jpg" alt="">#}
-                        {#                    </div>#}
+                        <div class="comment-avatar">
+                            <img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg"
+                                 alt=""></div>
                         <!-- Contenedor del Comentario -->
                         <div class="comment-box">
                             <div class="comment-head">
-                                <h6 class="comment-name">{#<a href="http://creaticode.com/blog">#}{{ commentaire.username }}</h6>
+                                <h5 class="comment-name"><a
+                                            href="{{ path('my_profile', {'id' : commentaire.usersId.id }) }}">{{ commentaire.username }}</a>
+                                </h5>
                                 <span>{{ commentaire.createdAt|date }}</span>
-                                {#                            <i class="fa fa-reply"></i>#}
-                                {#                            <i class="fa fa-heart"></i>#}
+                                <i class="fa fa-reply"></i>
+                                <i class="fa fa-heart"></i>
                             </div>
                             <div class="comment-content">
-                                {{ commentaire.contenu }}
+                                {{ commentaire.contenu|raw }}
                             </div>
                         </div>
                     </div>
                 </li>
             {% else %}
-                <li>
-                    Pas de commentaires
-                </li>
+                Pas de commentaires
             {% endfor %}
         </ul>
         {% if app.user %}

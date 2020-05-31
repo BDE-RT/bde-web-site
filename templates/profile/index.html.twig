@@ -1,15 +1,83 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ user.username }}{% endblock %}
+{% block title %}{{ profile.username }}{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="row justify-content-md-center">
-            {% if app.user == user.username %}
-
-            {% else %}
-
-            {% endif %}
+    <div class="container" style="margin-top: 3%">
+        <div class="card mb-3">
+            <h3 class="card-header">
+                {{ profile.username }}
+            </h3>
+            <img style="height: 100%; width: 256px; display: block;"
+                 class="mx-auto d-block"
+                 src="https://i.imgur.com/KWI4JAa.png"
+                 alt="Photo Profile">
+            <hr>
+            <div class="card-body">
+                <p class="card-text">{{ profile.description | raw }}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                {% if profile.steamId != null and app.user == profile.username %}
+                    <li class="list-group-item">ID Steam : {{ profile.steamId }}</li>
+                {% endif %}
+                {% if profile.friendCode != null %}
+                    <li class="list-group-item">Code Ami Steam : {{ profile.friendCode }}</li>
+                {% endif %}
+                {% if profile.discordTag != null %}
+                    <li class="list-group-item">Discord : {{ profile.discordTag }}</li>
+                {% endif %}
+                {% if profile.battleTag != null %}
+                    <li class="list-group-item">Battle Tag : {{ profile.battleTag }}</li>
+                {% endif %}
+                {% if profile.xboxname != null %}
+                    <li class="list-group-item">Pseudo Xbox : {{ profile.xboxname }}</li>
+                {% endif %}
+                {% if profile.palystation != null %}
+                    <li class="list-group-item">Pseudo PlayStation : {{ profile.palystation }}</li>
+                {% endif %}
+            </ul>
         </div>
+        <div class="card mb-3">
+            <div class="card-body">
+                <h4 class="card-title">Jeu jouer sur steam</h4>
+                <div class="card-body">
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+        </div>
+        {% if app.user == profile.username %}
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Card title</h4>
+                    {{ form_start(form) }}
+                    {{ form_label(form.imageFile) }}
+                    {{ form_widget(form.imageFile) }}
+                    <br>
+                    {{ form_label(form.description) }}
+                    {{ form_widget(form.description) }}
+                    <br>
+                    {{ form_label(form.steamId ) }}
+                    {{ form_widget(form.steamId, {'attr': {'placeholder': 'Idantifiant Steam', 'value' : profile.steamId }}) }}
+                    <br>
+                    {{ form_label(form.friendCode) }}
+                    {{ form_widget(form.friendCode, {'attr': {'placeholder': 'Code Ami Steam', 'value' : profile.friendCode }}) }}
+                    <br>
+                    {{ form_label(form.discordTag) }}
+                    {{ form_widget(form.discordTag, {'attr': {'placeholder': 'Idantifiant Discord', 'value' : profile.discordTag }}) }}
+                    <br>
+                    {{ form_label(form.battleTag) }}
+                    {{ form_widget(form.battleTag, {'attr': {'placeholder': 'Idantifiant Battle.net', 'value' : profile.battleTag }}) }}
+                    <br>
+                    {{ form_label(form.xboxname) }}
+                    {{ form_widget(form.xboxname, {'attr': {'placeholder': 'Identifiant Xbox', 'value' : profile.xboxname }}) }}
+                    <br>
+                    {{ form_label(form.palystation) }}
+                    {{ form_widget(form.palystation, {'attr': {'placeholder': 'Identifiant PlayStation', 'value' : profile.palystation }}) }}
+                    <br>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

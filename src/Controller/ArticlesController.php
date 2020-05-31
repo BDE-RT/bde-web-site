@@ -47,16 +47,21 @@ class ArticlesController extends AbstractController
 
         $user = $this->getUser();
 
+
         $commentaire = new Commentaires();
 
         $form = $this->createForm(CommentairesFormType::class, $commentaire);
 
         $form->handleRequest($request);
 
+//        dump($commentaires);
+//        die();
+
         if ($form->isSubmitted() && $form->isValid()) {
             $commentaire->setArticles($article);
             $commentaire->setCreatedAt(new \DateTime('now'));
             $commentaire->setUsername($user);
+            $commentaire->setUsersId($user);
 
             $doctrine = $this->getDoctrine()->getManager();
 

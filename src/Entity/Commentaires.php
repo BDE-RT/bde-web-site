@@ -48,6 +48,11 @@ class Commentaires
      */
     private $articles;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="commentaires")
+     */
+    private $usersId;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +126,18 @@ class Commentaires
     public function setArticles(?Articles $articles): self
     {
         $this->articles = $articles;
+
+        return $this;
+    }
+
+    public function getUsersId(): ?Users
+    {
+        return $this->usersId;
+    }
+
+    public function setUsersId(?Users $usersId): self
+    {
+        $this->usersId = $usersId;
 
         return $this;
     }
