@@ -1,0 +1,45 @@
+{#Ajout du Template de base#}
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/comments.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="comments-container">
+        <h1 class="text-white text-bold">Commentaire</h1>
+        <ul id="comments-list" class="comments-list">
+            <li>
+                <div class="comment-main-level">
+                    <div class="comment-avatar">
+                        <img src="{{ vich_uploader_asset(commentaire.usersId, 'imageFile') }}"
+                             alt="">
+                    </div>
+                    <div class="comment-box">
+                        <div class="comment-head">
+                            <h5 class="comment-name">
+                                <a href="{{ path('profile_viewer', {'id' : commentaire.usersId.id }) }}">{{ commentaire.username }}</a>
+                                {% if article.users.username == commentaire.username %}
+                                    |<span class="badge badge-pill badge-danger ">Auteur</span>
+                                {% endif %}
+                            </h5>
+                            |
+                            <span>{{ commentaire.createdAt|date }}</span>
+                        </div>
+                        <div class="comment-content">
+                            {{ commentaire.contenu|raw }}
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        {% if app.user %}
+            {{ form(formReply) }}
+        {% else %}
+            <div class="warning">
+                Pour poster des commentaires connectez-vous
+                <p><a href="{{ path('app_login') }}">Se connecter</a></p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

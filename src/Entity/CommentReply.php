@@ -2,15 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\CommentairesRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Repository\CommentReplyRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CommentairesRepository::class)
+ * @ORM\Entity(repositoryClass=CommentReplyRepository::class)
  */
-class Commentaires
+class CommentReply
 {
     /**
      * @ORM\Id()
@@ -45,25 +43,14 @@ class Commentaires
     private $created_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Articles::class, inversedBy="commentaires")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Commentaires::class, inversedBy="commentReplies")
      */
-    private $articles;
+    private $commentaire;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="commentaires")
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="commentReplies")
      */
     private $usersId;
-
-    /**
-     * @ORM\OneToMany(targetEntity=CommentReply::class, mappedBy="commentaire")
-     */
-    private $commentReplies;
-
-    public function __construct()
-    {
-        $this->commentReplies = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -130,14 +117,14 @@ class Commentaires
         return $this;
     }
 
-    public function getArticles(): ?Articles
+    public function getCommentaire(): ?Commentaires
     {
-        return $this->articles;
+        return $this->commentaire;
     }
 
-    public function setArticles(?Articles $articles): self
+    public function setCommentaire(?Commentaires $commentaire): self
     {
-        $this->articles = $articles;
+        $this->commentaire = $commentaire;
 
         return $this;
     }
@@ -150,37 +137,6 @@ class Commentaires
     public function setUsersId(?Users $usersId): self
     {
         $this->usersId = $usersId;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|CommentReply[]
-     */
-    public function getCommentReplies(): Collection
-    {
-        return $this->commentReplies;
-    }
-
-    public function addCommentReply(CommentReply $commentReply): self
-    {
-        if (!$this->commentReplies->contains($commentReply)) {
-            $this->commentReplies[] = $commentReply;
-            $commentReply->setCommentaire($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommentReply(CommentReply $commentReply): self
-    {
-        if ($this->commentReplies->contains($commentReply)) {
-            $this->commentReplies->removeElement($commentReply);
-            // set the owning side to null (unless already changed)
-            if ($commentReply->getCommentaire() === $this) {
-                $commentReply->setCommentaire(null);
-            }
-        }
 
         return $this;
     }

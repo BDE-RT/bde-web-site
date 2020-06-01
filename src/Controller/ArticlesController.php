@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Articles;
 use App\Entity\Commentaires;
+use App\Entity\CommentReply;
 use App\Form\CommentairesFormType;
-use App\Form\AjoutArticlesFormType;
+//use App\Form\AjoutArticlesFormType;
+use App\Form\CommentReplyFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +28,7 @@ class ArticlesController extends AbstractController
             $donnees,
             $request->query->getInt('page', 1),
             6
-            );
+        );
         return $this->render('articles/index.html.twig', [
             'articles' => $articles,
         ]);
@@ -35,13 +37,14 @@ class ArticlesController extends AbstractController
     /**
      * @Route("/article/{slug}/view", name="article_view")
      */
-    public function article($slug, Request $request){
+    public function article($slug, Request $request)
+    {
         $article = $this->getDoctrine()->getRepository(Articles::class)->findOneBy(['slug' => $slug]);
         $commentaires = $this->getDoctrine()->getRepository(Commentaires::class)->findBy([
             'articles' => $article,
-        ],['id' => 'desc']);
+        ], ['id' => 'desc']);
 
-        if(!$article){
+        if (!$article) {
             throw $this->createNotFoundException('L\'article n\'existe pas');
         }
 
@@ -54,8 +57,7 @@ class ArticlesController extends AbstractController
 
         $form->handleRequest($request);
 
-//        dump($commentaires);
-//        die();
+//        dd($commentaires);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $commentaire->setArticles($article);
@@ -77,6 +79,44 @@ class ArticlesController extends AbstractController
             'article' => $article,
             'formComment' => $form->createView(),
             'commentaires' => $commentaires,
+        ]);
+    }
+
+    /**
+     * @Route("/articles/{slug}/reply/{id}", name="reply")
+     */
+    public function reply($id, $slug, Request $request)
+    {
+        $article = $this->getDoctrine()->getRepository(Articles::class)->findOneBy(['slug' => $slug]);
+        $commentaire = $this->getDoctrine()->getRepository(Commentaires::class)->findOneBy(['id' => $id]);
+
+        $reply = new CommentReply();
+        $formReply = $this->createForm(CommentReplyFormType::class, $reply);
+
+        $formReply->handleRequest($request);
+
+        $user = $this->getUser();
+
+        if ($formReply->isSubmitted() && $formReply->isValid()) {
+            $reply->setCommentaire($commentaire);
+            $reply->setCreatedAt(new \DateTime('now'));
+            $reply->setUsername($user);
+            $reply->setUsersId($user);
+
+            $doctrine = $this->getDoctrine()->getManager();
+
+            $doctrine->persist($reply);
+
+            $doctrine->flush();
+            $this->addFlash('success', 'Reponse au commentaire envoyé');
+            return $this->redirectToRoute('article_view', ['slug' => $slug]);
+        }
+
+
+        return $this->render('articles/reply.html.twig', [
+            'commentaire' => $commentaire,
+            'formReply' => $formReply->createView(),
+            'article' => $article,
         ]);
     }
 }

@@ -47,6 +47,11 @@
         {% endif %}
     </div>
 </nav>
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
 {% block body %}{% endblock %}
 {% block javascripts %}<script src="{{ asset('css/Bootstrap/js/bootstrap.js') }}"></script>{% endblock %}
 </body>

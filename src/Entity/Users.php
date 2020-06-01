@@ -6,18 +6,19 @@ use App\Repository\UsersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * @ORM\Entity(repositoryClass=UsersRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\UsersRepository", repositoryClass=UsersRepository::class)
  * @UniqueEntity(fields={"email"}, message="Il existe déjà un compte avec cette e-mail")
  * @UniqueEntity(fields={"username"}, message="Il existe déjà un compte avec ce nom d'utilisateur")
  * @Vich\Uploadable
  */
-class Users implements UserInterface
+class Users implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -53,7 +54,10 @@ class Users implements UserInterface
     private $articles;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)     *
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
      */
     private $updated_at;
 
@@ -109,11 +113,17 @@ class Users implements UserInterface
      */
     private $imageFile;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CommentReply::class, mappedBy="usersId")
+     */
+    private $commentReplies;
+
 
     public function __construct()
     {
         $this->articles = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->commentReplies = new ArrayCollection();
     }
 
     public function __toString()
@@ -364,23 +374,23 @@ class Users implements UserInterface
         return $this;
     }
 
-    public function getUserImage(): ?string
+    public function getUserImage()
     {
         return $this->user_image;
     }
 
-    public function setUserImage(?string $user_image): self
+    public function setUserImage(?string $user_image)
     {
         $this->user_image = $user_image;
 
         return $this;
     }
 
-    public function setImageFile(File $image = null)
+    public function setImageFile(File $imageFile = null)
     {
-        $this->imageFile = $image;
+        $this->imageFile = $imageFile;
 
-        if ($image) {
+        if (null !== $imageFile) {
             $this->updated_at = new \DateTime('now');
         }
     }
@@ -388,5 +398,54 @@ class Users implements UserInterface
     public function getImageFile()
     {
         return $this->imageFile;
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+        ));
+    }
+
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            ) = unserialize($serialized);
+    }
+
+    /**
+     * @return Collection|CommentReply[]
+     */
+    public function getCommentReplies(): Collection
+    {
+        return $this->commentReplies;
+    }
+
+    public function addCommentReply(CommentReply $commentReply): self
+    {
+        if (!$this->commentReplies->contains($commentReply)) {
+            $this->commentReplies[] = $commentReply;
+            $commentReply->setUsersId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentReply(CommentReply $commentReply): self
+    {
+        if ($this->commentReplies->contains($commentReply)) {
+            $this->commentReplies->removeElement($commentReply);
+            // set the owning side to null (unless already changed)
+            if ($commentReply->getUsersId() === $this) {
+                $commentReply->setUsersId(null);
+            }
+        }
+
+        return $this;
     }
 }

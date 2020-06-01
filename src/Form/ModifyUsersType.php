@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Users;
-use \Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -11,7 +11,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
-use Symfony\Component\HttpFoundation\File\File;
 
 class ModifyUsersType extends AbstractType
 {
@@ -31,7 +30,7 @@ class ModifyUsersType extends AbstractType
                 'label' => 'Description :',
                 'required' => false,
             ])
-            ->add('steamId', TextType::class,[
+            ->add('steamId', IntegerType::class,[
                 'label' => 'Id Steam :',
                 'required' => false,
             ])
