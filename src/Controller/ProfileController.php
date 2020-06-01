@@ -19,28 +19,30 @@ class ProfileController extends AbstractController
      */
     public function index(Request $request, EntityManagerInterface $manager) {
 
-        $form = $this->createForm(ModifyUsersType::class);
+        $user = $this->getUser();
+
+        $form = $this->createForm(ModifyUsersType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($request);
 
-//            $manager->persist($user);
+
+            $manager->persist($user);
             $manager->flush();
 
             $this->addFlash('message', 'Utilisateur modifié avec succès');
             return $this->redirectToRoute('profile_home');
         }
+        //dd($user);
         return $this->render('profile/index.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ]);
     }
 
 
     /**
      * @Route("/profile/{id}/view", name="profile_viewer")
-     * @param $id
-     * @return Response
      */
     public function viewprofile($id)
     {

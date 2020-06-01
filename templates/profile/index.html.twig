@@ -50,23 +50,23 @@
             <div class="card-body">
                 <h4 class="card-title">Card title</h4>
                 {{ form_start(form) }}
-                {{ form_label(form.user_image) }}
-                {{ form_widget(form.user_image) }}
+                {{ form_label(form.imageFile) }}
+                {{ form_widget(form.imageFile) }}
                 <br>
                 {{ form_label(form.description) }}
                 {{ form_widget(form.description) }}
                 <br>
                 {{ form_label(form.steamId ) }}
-                {{ form_widget(form.steamId, {'attr': {'placeholder': 'Idantifiant Steam' }}) }}
+                {{ form_widget(form.steamId, {'attr': {'placeholder': 'Identifiant Steam' }}) }}
                 <br>
                 {{ form_label(form.friendCode) }}
                 {{ form_widget(form.friendCode, {'attr': {'placeholder': 'Code Ami Steam' }}) }}
                 <br>
                 {{ form_label(form.discordTag) }}
-                {{ form_widget(form.discordTag, {'attr': {'placeholder': 'Idantifiant Discord' }}) }}
+                {{ form_widget(form.discordTag, {'attr': {'placeholder': 'Identifiant Discord' }}) }}
                 <br>
                 {{ form_label(form.battleTag) }}
-                {{ form_widget(form.battleTag, {'attr': {'placeholder': 'Idantifiant Battle.net' }}) }}
+                {{ form_widget(form.battleTag, {'attr': {'placeholder': 'Identifiant Battle.net' }}) }}
                 <br>
                 {{ form_label(form.xboxname) }}
                 {{ form_widget(form.xboxname, {'attr': {'placeholder': 'Identifiant Xbox' }}) }}

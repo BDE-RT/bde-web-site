@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Component\HttpFoundation\File\File;
 
 class ModifyUsersType extends AbstractType
 {
@@ -22,7 +23,7 @@ class ModifyUsersType extends AbstractType
 //            ->add('password')
 //            ->add('username')
 //            ->add('updated_at')
-            ->add('user_image', VichImageType::class, [
+            ->add('imageFile', VichImageType::class, [
                 'label' => 'Photo de profile :',
                 'required' => false,
             ])
